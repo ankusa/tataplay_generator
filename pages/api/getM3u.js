@@ -34,7 +34,6 @@ const fetchChannelData = async () => {
     try {
         console.log('Fetching channel data...');
         const response = await fetchData("https://fox.toxic-gang.xyz/tata/channels");
-
         
         const channels = response?.data || [];
         console.log(`Channels data fetched successfully. Total channels: ${channels.length}`);
@@ -131,7 +130,6 @@ const combineData = (channels, hmacValue) => {
     }));
 };
 
-// Generates M3U playlist string
 // Generates M3U playlist string with channels ordered by category
 const generateM3u = async () => {
     try {
