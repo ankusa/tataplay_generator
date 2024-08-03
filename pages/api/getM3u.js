@@ -132,6 +132,7 @@ const combineData = (channels, hmacValue) => {
 };
 
 // Generates M3U playlist string
+// Generates M3U playlist string with channels ordered by category
 const generateM3u = async () => {
     try {
         console.log('Generating M3U playlist...');
@@ -139,8 +140,21 @@ const generateM3u = async () => {
         const hmacValue = await fetchHmacData();
         const combinedData = combineData(channels, hmacValue);
 
+        // Define the order of categories
+        const categoryOrder = [
+            'entertainment', 'movies', 'kids', 'sports', 'infotainment',
+            'news', 'devotional', 'educational', 'music'
+        ];
+
+        // Sort channels by the defined category order
+        combinedData.sort((a, b) => {
+            const categoryA = a.group_title ? categoryOrder.indexOf(a.group_title.toLowerCase()) : Infinity;
+            const categoryB = b.group_title ? categoryOrder.indexOf(b.group_title.toLowerCase()) : Infinity;
+            return categoryA - categoryB;
+        });
+
         let m3uStr = '#EXTM3U x-tvg-url="https://raw.githubusercontent.com/mitthu786/tvepg/main/tataplay/epg.xml.gz"\n\n';
-        
+
         combinedData.forEach(channel => {
             m3uStr += `#EXTINF:-1 tvg-id="${channel.tvg_id}" `;
             m3uStr += `group-title="${channel.group_title}", tvg-logo="${channel.tvg_logo}", ${channel.name}\n`;
