@@ -7,7 +7,7 @@ const getUserChanDetails = async () => {
     let obj = { list: [] };
 
     try {
-        const responseHmac = await fetch("https://fox.toxic-gang.xyz/tata/hmac");
+        const responseHmac = await fetch("https://clearkeys.vercel.app/tataplay/hmac.json");
         const data = await responseHmac.json();
         const hmacData = data[0];
         hmacValue = hmacData.data.hdntl;
@@ -17,7 +17,7 @@ const getUserChanDetails = async () => {
     }
 
     try {
-        const responseChannels = await fetch("https://fox.toxic-gang.xyz/tata/channels");
+        const responseChannels = await fetch("https://clearkeys.vercel.app/tataplay/fetcher.json");
         const cData = await responseChannels.json();
 
         if (cData && cData.data && Array.isArray(cData.data)) {
