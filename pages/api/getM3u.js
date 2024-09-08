@@ -1,5 +1,4 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 import fetch from "cross-fetch";
 
 const getUserChanDetails = async () => {
@@ -12,7 +11,7 @@ const getUserChanDetails = async () => {
 
         // Validate structure and access values correctly
         if (data && data.data && data.data.hdntl) {
-            hmacValue = data.data.hdntl.value; // Adjusted to correctly access HMAC value
+            hmacValue = data.data.hdntl.value; // Correct access to HMAC value
         } else {
             console.error("Invalid HMAC data structure");
             return obj;
@@ -43,12 +42,12 @@ const getUserChanDetails = async () => {
                     stream_url: channel.initialUrl || "",
                     license_url: channel.license_url || "",
                     stream_headers: channel.manifest_headers ? (channel.manifest_headers['User-Agent'] || JSON.stringify(channel.manifest_headers)) : null,
-                    drm: channel.drm || "",
-                    is_mpd: channel.is_mpd || false,
-                    kid_in_mpd: channel.kid_in_mpd || false,
-                    hmac_required: channel.hmac_required || false,
-                    key_extracted: channel.key_extracted || false,
-                    pssh: channel.pssh || "",
+                    drm: channel.drm,
+                    is_mpd: channel.is_mpd,
+                    kid_in_mpd: channel.kid_in_mpd,
+                    hmac_required: channel.hmac_required,
+                    key_extracted: channel.key_extracted,
+                    pssh: channel.pssh,
                     clearkey: clearkeyValue,
                     hma: hmacValue
                 };
